@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trần Tuấn Media | Dịch Vụ Mạng Xã Hội Cao Cấp</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #0a0a0f;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Hiệu ứng nền động (particle) */
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 30%, rgba(0, 180, 255, 0.08) 0%, transparent 30%),
+                        radial-gradient(circle at 80% 70%, rgba(255, 0, 200, 0.08) 0%, transparent 35%);
+        }
+
+        /* Thanh loading mô phỏng Anti-DDOS */
+        #anti-ddos-check {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #0a0a0f;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            backdrop-filter: blur(12px);
+        }
+
+        .shield-icon {
+            font-size: 70px;
+            color: #00e0ff;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 20px #00e0ff);
+            animation: pulseGlow 1.5s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            from { filter: drop-shadow(0 0 10px #00e0ff); }
+            to { filter: drop-shadow(0 0 30px #ff00c8); }
+        }
+
+        .progress-bar {
+            width: 220px;
+            height: 4px;
+            background: #1e1e2a;
+            border-radius: 4px;
+            margin: 25px 0 15px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #00e0ff, #ff00c8);
+            animation: loading 2.5s ease-out forwards;
+        }
+
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        /* Header */
+        header {
+            padding: 140px 8% 80px;
+            text-align: center;
+            position: relative;
+        }
+
+        .brand-name {
+            font-size: clamp(44px, 12vw, 100px);
+            font-weight: 700;
+            line-height: 0.9;
+            text-transform: uppercase;
+            letter-spacing: -3px;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .brand-name span {
+            background: linear-gradient(135deg, #fff 0%, #a0a0ff 40%, #00e0ff 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 25px rgba(0, 224, 255, 0.5));
+            position: relative;
+        }
+
+        /* Tia sét đẹp mắt hơn */
+        .brand-name::before {
+            content: "";
+            position: absolute;
+            top: -70px;
+            left: 50%;
+            transform: translateX(-50%) rotate(10deg);
+            width: 10px;
+            height: 180px;
+            background: linear-gradient(180deg, rgba(255,255,255,0) 0%, #fff 40%, #fff 70%, rgba(255,255,255,0) 100%);
+            filter: blur(6px) drop-shadow(0 0 20px #00f0ff);
+            opacity: 0;
+            animation: lightning 8s infinite;
+            z-index: -1;
+        }
+
+        @keyframes lightning {
+            0%, 95%, 98% { opacity: 0; top: -70px; }
+            96% { opacity: 1; top: -20px; }
+            97% { opacity: 0.6; top: -10px; }
+            99% { opacity: 0.8; top: 0; }
+        }
+
+        .sub-brand {
+            color: #b0b0c0;
+            font-size: 18px;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            background: rgba(255,255,255,0.03);
+            padding: 8px 25px;
+            border-radius: 40px;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 35px;
+        }
+
+        .slogan-box {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 18px 30px;
+            background: rgba(10, 10, 20, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 224, 255, 0.2);
+            border-radius: 80px;
+            font-size: 18px;
+            color: #dddddd;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+        }
+
+        .container {
+            padding: 30px 8% 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Card dịch vụ */
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .service-card {
+            background: rgba(20, 20, 30, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 36px;
+            padding: 32px 28px;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 224, 255, 0.3);
+            box-shadow: 0 30px 60px -15px rgba(0, 224, 255, 0.2);
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #00e0ff, #ff00c8, #7000ff);
+        }
+
+        .card-title {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #fff;
+        }
+
+        .card-title i {
+            color: #00e0ff;
+            font-size: 30px;
+            filter: drop-shadow(0 0 8px #00e0ff);
+        }
+
+        .card-sub {
+            color: #ffd966;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 25px 0 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+            padding-bottom: 8px;
+        }
+
+        .service-list {
+            list-style: none;
+        }
+
+        .service-list li {
+            margin-bottom: 14px;
+            display: flex;
+            gap: 14px;
+            color: #b0b0c0;
+            font-size: 15px;
+            align-items: flex-start;
+        }
+
+        .service-list li i {
+            color: #00e0ff;
+            margin-top: 4px;
+            min-width: 20px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .price-row span:first-child {
+            color: #ccc;
+        }
+
+        .price-tag {
+            font-weight: 700;
+            font-size: 20px;
+            background: linear-gradient(135deg, #00e0ff, #ff00c8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .badge {
+            background: #ff00c8;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 40px;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px #ff00c8;
+        }
+
+        .policy-card {
+            background: linear-gradient(145deg, #10101a, #0a0a12);
+            border: 2px solid rgba(0, 224, 255, 0.3);
+            border-radius: 40px;
+            padding: 45px;
+            margin: 60px 0;
+            position: relative;
+        }
+
+        .floating-heart {
+            animation: float 2s infinite ease-in-out;
+            display: inline-block;
+            color: #ff00c8;
+            font-size: 24px;
+            filter: drop-shadow(0 0 10px #ff00c8);
+        }
+
+        @keyframes float {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        /* Contact hub */
+        .contact-hub {
+            position: fixed;
+            bottom: 35px;
+            right: 35px;
+            z-index: 999;
+        }
+
+        .hub-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px) scale(0.8);
+            transition: 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.4);
+            pointer-events: none;
+        }
+
+        .hub-menu.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .hub-item {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+        }
+
+        .hub-item:hover {
+            transform: scale(1.15) translateY(-5px);
+        }
+
+        .phone-color { background: #10b981; }
+        .zalo-color { background: #0068ff; }
+        .tele-color { background: #24A1DE; }
+        .whatsapp-color { background: #25D366; }
+
+        .main-chat-btn {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, #00e0ff, #7000ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 10px 30px #7000ff;
+            transition: 0.3s;
+            margin-left: auto;
+        }
+
+        .main-chat-btn.active {
+            transform: rotate(135deg);
+            background: #2a2a3a;
+            box-shadow: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 70px 0 40px;
+            color: #5a5a70;
+            border-top: 1px solid rgba(255,255,255,0.02);
+            font-size: 15px;
+            letter-spacing: 2px;
+        }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+            header { padding: 100px 5% 50px; }
+            .brand-name { font-size: 48px; }
+            .sub-brand { letter-spacing: 5px; font-size: 14px; }
+            .service-grid { grid-template-columns: 1fr; }
+            .policy-card { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="particles"></div>
+
+<!-- Anti-DDOS Check -->
+<div id="anti-ddos-check">
+    <div class="shield-icon"><i class="fas fa-shield-halved"></i></div>
+    <h2 style="color: #00e0ff; font-weight: 600; letter-spacing: 3px;">SECURITY CHECK</h2>
+    <div class="progress-bar"><div class="progress-fill"></div></div>
+    <p style="color: #aaa;">Đang xác thực kết nối an toàn...</p>
+</div>
+
+<header>
+    <div class="brand-name"><span>TRẦN TUẤN</span> <br> <span>MEDIA</span></div>
+    <div class="sub-brand">🔰 @TRANTUANMEDIA 🔰</div>
+    <div class="slogan-box">✦ Đối tác đáng tin cậy - Dịch vụ MXH & Đào tạo chuyên sâu ✦</div>
+</header>
+
+<div class="container">
+
+    <!-- Dịch vụ chính - grid -->
+    <div class="service-grid">
+        <!-- 1. Hỗ trợ unlock -->
+        <div class="service-card">
+            <div class="card-title"><i class="fab fa-facebook"></i> FACEBOOK UNLOCK</div>
+            <ul class="service-list">
+                <li><i class="fas fa-check-circle"></i> Mở khóa 282, 429, 583, FAQ, Vô hiệu hóa</li>
+                <li><i class="fas fa-check-circle"></i> Lấy lại acc bị hack / chiếm quyền</li>
+                <li><i class="fas fa-check-circle"></i> Kháng hạn chế, gậy, lỗi kỹ thuật</li>
+            </ul>
+            <div class="card-sub"><i class="fab fa-tiktok"></i> TIKTOK UNLOCK</div>
+            <ul class="service-list">
+                <li><i class="fas fa-check-circle"></i> Mở cấm vĩnh viễn, đình chỉ LIVE</li>
+                <li><i class="fas fa-check-circle"></i> Kháng vi phạm video, giỏ hàng</li>
+                <li><i class="fas fa-check-circle"></i> Lại lại acc bị hack</li>
+            </ul>
+        </div>
+
+        <!-- 2. Dịch vụ Dame Facebook -->
+        <div class="service-card">
+            <div class="card-title"><i class="fas fa-trash-alt"></i> DAME FB & TIKTOK</div>
+            <div class="price-row"><span>Form dame FB (update die nhanh)</span> <span class="price-tag">350K</span></div>
+            <div class="price-row"><span>Dame link thường</span> <span class="price-tag">300K</span></div>
+            <div class="price-row"><span>Dame link chuyên nghiệp</span> <span class="price-tag">350K</span></div>
+            <div class="price-row"><span>Dame link Locket</span> <span class="price-tag">400K</span></div>
+            <div class="price-row"><span>Dame link wall trắng</span> <span class="price-tag">500K</span></div>
+            <div class="price-row"><span>Dame tích xanh FB</span> <span class="price-tag">800K</span></div>
+            <div class="card-sub"><i class="fab fa-tiktok"></i> TIKTOK DAME</div>
+            <p style="color:#b0b0c0;">Liên hệ Admin nhận báo giá theo ID kênh</p>
+        </div>
+
+        <!-- 3. Instagram -->
+        <div class="service-card">
+            <div class="card-title"><i class="fab fa-instagram"></i> INSTAGRAM</div>
+            <ul class="service-list">
+                <li><i class="fas fa-unlock-alt"></i> Mở khóa FAQ, kháng vi phạm</li>
+                <li><i class="fas fa-ban"></i> Dame (xóa) tài khoản fake - 500K</li>
+                <li><i class="fas fa-certificate"></i> Lên tích xanh Instagram - 999K</li>
+            </ul>
+            <div class="card-sub"><i class="fas fa-chart-line"></i> Tăng tương tác</div>
+            <div class="price-row"><span>1.000 Follow</span> <span class="price-tag">25K</span></div>
+            <div class="price-row"><span>1.000 Tim</span> <span class="price-tag">30K</span></div>
+            <div class="price-row"><span>1.000 Comment</span> <span class="price-tag">1K</span></div>
+        </div>
+
+        <!-- 4. Telegram & Tool -->
+        <div class="service-card">
+            <div class="card-title"><i class="fab fa-telegram-plane"></i> TELEGRAM</div>
+            <ul class="service-list">
+                <li><i class="fas fa-unlock-alt"></i> Unlock tài khoản bị cấm</li>
+                <li><i class="fas fa-robot"></i> Cung cấp tool bot Telegram</li>
+            </ul>
+            <div class="price-row"><span>Xóa tài khoản</span> <span class="price-tag">500K</span></div>
+            <div class="price-row"><span>1.000 Member</span> <span class="price-tag">50K</span></div>
+            <div class="card-sub"><i class="fas fa-code"></i> TOOL & TUT</div>
+            <div class="price-row"><span>TUT Dame FB (tặng tool)</span> <span class="price-tag">350K</span></div>
+            <div class="price-row"><span>TUT Dame TikTok</span> <span class="price-tag">300K</span></div>
+        </div>
+
+        <!-- 5. Tài nguyên MXH -->
+        <div class="service-card">
+            <div class="card-title"><i class="fas fa-database"></i> TÀI NGUYÊN</div>
+            <div class="price-row"><span>VIA CLONE (thường)</span> <span class="price-tag">4K</span></div>
+            <div class="price-row"><span>VIA CLONE US</span> <span class="price-tag">10K</span></div>
+            <div class="price-row"><span>VIA chuyên dame FB</span> <span class="price-tag">250K</span></div>
+            <div class="price-row"><span>VIA tích xanh FB</span> <span class="price-tag">350K</span></div>
+            <div class="price-row"><span>TikTok live giỏ hàng</span> <span class="price-tag">200K</span></div>
+            <div class="price-row"><span>Capcut Pro</span> <span class="price-tag">30K</span></div>
+        </div>
+
+        <!-- 6. Tăng tương tác -->
+        <div class="service-card">
+            <div class="card-title"><i class="fas fa-rocket"></i> TĂNG TƯƠNG TÁC</div>
+            <div class="card-sub">TIKTOK</div>
+            <div class="price-row"><span>1.000 Follow</span> <span class="price-tag">15K</span></div>
+            <div class="price-row"><span>1.000 Tim</span> <span class="price-tag">30K</span></div>
+            <div class="price-row"><span>Mắt LIVE (200-300)</span> <span class="price-tag">100K</span></div>
+            <div class="card-sub">FACEBOOK</div>
+            <div class="price-row"><span>1.000 Follow</span> <span class="price-tag">4K</span></div>
+            <div class="price-row"><span>Mắt LIVE (100)</span> <span class="price-tag">100K</span></div>
+        </div>
+    </div>
+
+    <!-- Phần 8: Chạy ads & đào tạo -->
+    <div class="service-card" style="margin: 30px 0;">
+        <div class="card-title"><i class="fas fa-bullseye"></i> QUẢNG CÁO ADS & ĐÀO TẠO</div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 15px;">
+            <div class="price-row"><span>Combo 1 (2-5tr/tuần)</span> <span class="price-tag">LIÊN HỆ</span></div>
+            <div class="price-row"><span>Combo 2 (5-10tr/tuần)</span> <span class="price-tag">LIÊN HỆ</span></div>
+            <div class="price-row"><span>Combo 3 (10-20tr/tuần)</span> <span class="price-tag">LIÊN HỆ</span></div>
+            <div class="price-row"><span>Gói tháng (10-30tr)</span> <span class="price-tag">LIÊN HỆ</span></div>
+        </div>
+        <div class="card-sub"><i class="fas fa-graduation-cap"></i> ĐÀO TẠO ADS</div>
+        <div class="price-row"><span>Khóa cơ bản</span> <span class="price-tag">3TR</span></div>
+        <div class="price-row"><span>Khóa nâng cao</span> <span class="price-tag">5TR</span></div>
+    </div>
+
+    <!-- Thiết kế web, menu, logo -->
+    <div class="service-card" style="margin: 30px 0;">
+        <div class="card-title"><i class="fas fa-paint-brush"></i> THIẾT KẾ WEBSITE - MENU - LOGO</div>
+        <div class="price-row"><span>Thiết kế website theo yêu cầu</span> <span class="price-tag">999K</span></div>
+        <div class="price-row"><span>Thiết kế Menu</span> <span class="price-tag">300K</span></div>
+        <div class="price-row"><span>Thiết kế bản hiệu</span> <span class="price-tag">350K</span></div>
+        <div class="price-row"><span>Logo thương hiệu</span> <span class="price-tag">200K</span></div>
+    </div>
+
+    <!-- CHÍNH SÁCH UY TÍN -->
+    <div class="policy-card">
+        <span class="badge" style="position: absolute; top: -12px; right: 30px;">⭐ BẢO HÀNH SỐ 1</span>
+        <h2 style="font-size: 30px; margin-bottom: 30px; display: flex; gap: 15px; align-items: center;"><i class="fas fa-file-signature" style="color:#00e0ff;"></i> CHÍNH SÁCH TRẦN TUẤN MEDIA</h2>
+        <ul class="service-list" style="font-size: 17px;">
+            <li><i class="fas fa-star" style="color: gold;"></i> Trải nghiệm dịch vụ tốt nhất - Hỗ trợ 24/7</li>
+            <li><i class="fas fa-shield" style="color:#00ff88;"></i> Luôn đồng hành, bảo hành đầy đủ mọi dịch vụ</li>
+            <li><i class="fas fa-hand-holding-usd" style="color:#00e0ff;"></i> Hoàn tiền 100% nếu giao dịch thất bại</li>
+            <li><i class="fas fa-comments" style="color:#ff00c8;"></i> Tư vấn miễn phí - Hỗ trợ tận tâm, không lăng mạ</li>
+        </ul>
+        <div style="text-align: center; margin-top: 30px;">
+            <span class="floating-heart"><i class="fas fa-heart"></i></span> 
+            <span style="font-weight: 700; color: #ff99cc;">CẢM ƠN QUÝ KHÁCH ĐÃ CHỌN TRẦN TUẤN MEDIA</span>
+        </div>
+    </div>
+
+    <!-- AI TOOLS -->
+    <div class="service-card">
+        <div class="card-title"><i class="fas fa-brain"></i> AI SUPPORT MMO</div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: 12px;">
+            <span>🔹 Grok.ai</span> <span>🔹 LightPDF</span> <span>🔹 SlidesAI</span> <span>🔹 InVideo</span>
+            <span>🔹 Visme</span> <span>🔹 AmperMusic</span> <span>🔹 Fotor</span> <span>🔹 Claude.ai</span>
+            <span>🔹 LogoAI</span> <span>🔹 Murf.ai</span> <span>🔹 Framer</span> <span>🔹 DreamStudio</span>
+        </div>
+    </div>
+</div>
+
+<!-- Contact Hub -->
+<div class="contact-hub">
+    <div class="hub-menu" id="hubMenu">
+        <a href="tel:0944632388" class="hub-item phone-color" title="Gọi ngay"><i class="fas fa-phone-alt"></i></a>
+        <a href="https://zalo.me/0944632388" target="_blank" class="hub-item zalo-color" title="Zalo"><i class="fas fa-comment"></i></a>
+        <a href="https://wa.me/84944632388" target="_blank" class="hub-item whatsapp-color" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+    </div>
+    <div class="main-chat-btn" onclick="toggleHub()" id="hubBtn">
+        <i class="fab fa-facebook-messenger"></i>
+    </div>
+</div>
+
+<footer>
+    TRẦN TUẤN MEDIA © 2026 | ĐẲNG CẤP DỊCH VỤ - THÀNH CÔNG CỦA BẠN
+</footer>
+
+<script>
+    // Ẩn màn hình chờ sau 2.5s
+    window.addEventListener('load', function() {
+        setTimeout(() => {
+            document.getElementById('anti-ddos-check').style.display = 'none';
+        }, 2500);
+    });
+
+    // Toggle hub
+    let lastClick = 0;
+    function toggleHub() {
+        let now = Date.now();
+        if (now - lastClick < 1500) return;
+        lastClick = now;
+        document.getElementById('hubMenu').classList.toggle('active');
+        document.getElementById('hubBtn').classList.toggle('active');
+    }
+
+    // Tạo hiệu ứng nổi nhẹ (particle ảo)
+    const particles = document.getElementById('particles');
+    setInterval(() => {
+        let spark = document.createElement('div');
+        spark.style.position = 'absolute';
+        spark.style.left = Math.random() * 100 + '%';
+        spark.style.top = Math.random() * 100 + '%';
+        spark.style.width = '4px';
+        spark.style.height = '4px';
+        spark.style.background = 'rgba(0,224,255,0.6)';
+        spark.style.borderRadius = '50%';
+        spark.style.filter = 'blur(2px)';
+        spark.style.pointerEvents = 'none';
+        particles.appendChild(spark);
+        setTimeout(() => spark.remove(), 800);
+    }, 400);
+</script>
+
+</body>
+</html>
